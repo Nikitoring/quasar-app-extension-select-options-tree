@@ -8,15 +8,13 @@
 
 function extendConf (conf) {
   // make sure my-ext boot file is registered
-  conf.boot.push('~@quasar/quasar-app-extension-qselect-options-tree/src/boot/register-qselect-options-tree.js')
-  console.log(` App Extension (quasar-app-extension-qselect-options-tree) Info: 'Adding quasar-app-extension-qselect-options-tree boot reference to your quasar.conf.js'`)
+  conf.boot.push('~quasar-app-extension-q-select-options-tree/src/boot/register-qselect-options-tree.js')
   // make sure boot & component files get transpiled
-  conf.build.transpileDependencies.push(/quasar-app-extension-qselect-options-tree[\\/]src/)
+  conf.build.transpileDependencies.push(/quasar-app-extension-q-select-options-tree[\\/]src/)
 
   // make sure my-ext css goes through webpack to avoid ssr issues
   // conf.css.push('~quasar-app-extension-qselect-options-tree/src/component/MyComponent.sass')
 }
-
 module.exports = function (api) {
   // (Optional!)
   // Quasar compatibility check; you may need

@@ -1,34 +1,47 @@
-Quasar App Extension quasar-qselect-options-tree
+Quasar App Extension Select Options Tree
 ===
 
-_Be sure to change this readme as appropriate for your app extension._
+> Added option like tree in q-select
 
-_Think about the organization of this file and how the information will be beneficial to the user._
+![optionsTree](https://user-images.githubusercontent.com/50715463/118376098-90abca00-b5ce-11eb-85cc-d878e7d34583.png)
 
-> Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
-
-Added option like tree in q-select
 
 # Install
 ```bash
-quasar ext add quasar-qselect-options-tree
+quasar ext add quasar-select-options-tree
 ```
 Quasar CLI will retrieve it from the NPM registry and install the extension to your project.
 
-## Prompts
+## Example Usage
+ ```bash
+ <select-tree 
+  :attributes="attributes"
+  :setValue="setValue"
+  :options="options
+  :nodeKey="nodeKey"
+ />
 
-> Explain the prompts here
+ ```
+ ## Props Description
+ 1. options: 
+    - type": "Array",
+    - Available options that the user can select from,
+    - examples:
+    ```bash
+    [{label: 'American Cars', children: [ {label:'Ford'}, {label:'Tesla'}, {label:'General Motors'}]}]"
+    ```
+  2. attributes:
+    - type": "Object",
+    - All attributes Qselect (multiple is default)
+  3. setValue:
+    - type: "Function",
+    - Emit for get model
+  4. nodeKey:
+    - type: "String",
+    - Option key
 
 # Uninstall
 ```bash
-quasar ext remove quasar-qselect-options-tree
+quasar ext remove quasar-select-options-tree
 ```
 
-# Info
-> Add longer information here that will help the user of your app extension.
-
-# Other Info
-> Add other information that's not as important to know
-
-# Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).

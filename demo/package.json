@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "select-options-tree",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
   "productName": "Quasar App",
@@ -12,15 +12,14 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "quasar-app-extension-select-options-tree": "^0.0.1"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
-    "@quasar/quasar-app-extension-qselect-options-tree": "link:../.",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.21.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.7.0",
     "eslint-webpack-plugin": "^2.4.0"
   },

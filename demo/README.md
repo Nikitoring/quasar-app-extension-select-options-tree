@@ -1,4 +1,4 @@
-# Quasar App (demo)
+# Quasar App (select-options-tree)
 
 A Quasar Framework app
 
