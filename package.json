@@ -13,8 +13,8 @@
     "type": "git",
     "url": "https://github.com/Nikitoring/quasar-qselect-option-tree"
   },
-  "bugs": "",
-  "homepage": "",
+  "bugs": "https://github.com/Nikitoring/quasar-qselect-option-tree/issues",
+  "homepage": "https://github.com/Nikitoring/quasar-qselect-option-tree",
   "engines": {
     "node": ">= 8.9.0",
     "npm": ">= 5.6.0",
