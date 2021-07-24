@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-select-options-tree",
-  "version": "0.0.5",
+  "version": "1.0.1",
   "private": false,
   "description": "Quasar App Extension which injects a Vue component - QSelectOptionsTree",
   "author": "Nikitoring <m.nikitoing@gmail.com>",
@@ -13,7 +13,13 @@
     "type": "git",
     "url": "https://github.com/Nikitoring/quasar-qselect-option-tree"
   },
-  "keywords": ["quasar", "vue", "qselect", "tree"],
+  "keywords": [
+    "quasar",
+    "vue",
+    "qselect",
+    "tree",
+    "checkboxes"
+  ],
   "bugs": "https://github.com/Nikitoring/quasar-qselect-option-tree/issues",
   "homepage": "https://github.com/Nikitoring/quasar-qselect-option-tree",
   "engines": {
