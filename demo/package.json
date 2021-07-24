@@ -12,8 +12,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0",
-    "quasar-app-extension-select-options-tree": "file:../app-extension"
+    "quasar": "^1.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
@@ -21,7 +20,8 @@
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.7.0",
-    "eslint-webpack-plugin": "^2.4.0"
+    "eslint-webpack-plugin": "^2.4.0",
+    "quasar-app-extension-select-options-tree": "^1.0.4"
   },
   "browserslist": [
     "last 10 Chrome versions",

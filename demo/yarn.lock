@@ -6910,8 +6910,10 @@ qs@6.7.0:
   resolved "https://registry.npmjs.org/qs/-/qs-6.7.0.tgz"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-"quasar-app-extension-select-options-tree@file:../app-extension":
-  version "1.0.3"
+quasar-app-extension-select-options-tree@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-select-options-tree/-/quasar-app-extension-select-options-tree-1.0.4.tgz#f02feeecd8fe8a5ed80fb78e40e6871c2e877866"
+  integrity sha512-vIgiXjMibu0R5leqrZWSBw110983j8IV2q3XFByTAYc/4URL7LoucLo3u6wDVdr9KQ0gT7mKlyqqLEuQAzOjww==
 
 quasar@^1.0.0:
   version "1.15.14"
