@@ -8,13 +8,13 @@ Quasar App Extension Select Options Tree
 
 # Install
 ```bash
-quasar ext add quasar-select-options-tree
+quasar ext add select-options-tree
 ```
 Quasar CLI will retrieve it from the NPM registry and install the extension to your project.
 
 ## Example Usage
  ```bash
- <select-tree 
+ <select-tree
   :attributes="attributes"
   :setValue="setValue"
   :options="options
@@ -23,7 +23,7 @@ Quasar CLI will retrieve it from the NPM registry and install the extension to y
 
  ```
  ## Props Description
- 1. options: 
+ 1. options:
     - type": "Array",
     - Available options that the user can select from,
     - examples:
@@ -42,6 +42,5 @@ Quasar CLI will retrieve it from the NPM registry and install the extension to y
 
 # Uninstall
 ```bash
-quasar ext remove quasar-select-options-tree
+quasar ext remove select-options-tree
 ```
-

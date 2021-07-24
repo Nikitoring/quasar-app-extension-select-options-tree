@@ -1,32 +1,18 @@
 <template>
   <q-select
+    ref="refQSelectOptionsTree"
     v-bind="attributes"
     multiple
     v-model="model"
-    :options="optionsclone"
-    clearable
-    @clear="
-      (val) => {
-        selectClear(val);
-      }
-    "
-    @remove="
-      (details) => {
-        removeOption(details);
-      }
-    "
+    :options="optionsOrigin"
+    @remove="removeOption"
+    @clear="clearSelect"
+    @input="setModel"
+    @filter="fllter"
+    @blur="blur"
   >
-    <template v-slot:option="{ opt }">
-      <div v-if="opt.children" :key="`${opt.value}`">
-        <OptionTree
-          :options="[...opt]"
-          :parent="opt"
-          :nodeKey="optionKey"
-          :ticked="tickedModel[opt[optionKey]] ? tickedModel[opt[optionKey]] : []"
-          :model="model"
-          @passToModel="setModel"
-        />
-      </div>
+    <template v-slot:option="scope">
+      <OptionTree :scope="scope" @passStateToModel="checkGroupState" :nodeKey="'entityId'" />
     </template>
   </q-select>
 </template>
@@ -40,69 +26,73 @@ export default {
     nodeKey: String,
     options: Array,
     value: Array,
-    setValue: Function
+    setValue: Function,
+    slots: Array
   },
   data() {
     return {
       model: [],
       optionKey: this.nodeKey ? this.nodeKey : 'value',
-      tickedModel: [],
-      optionsclone: this.options && this.options.length ? this.options : [],
+      selectedModel: {},
+      optionsOrigin: this.options && this.options.length ? this.options : [],
     };
   },
   methods: {
-    setModel ({ target, root }) {
-      // Check remove element
-      if (this.tickedModel[root.value] && this.tickedModel[root.value].length > target.length) {
-        const uniq = this.tickedModel[root.value].filter(e => target.findIndex(a => a[this.optionKey] === e[this.optionKey]) === -1)
+    checkGroupState (arr, toot) {
+      let cloneModel = [...this.model]
+      // *Check remove element
+      if (arr && this.selectedModel[root[this.nodeKey]] && this.selectedModel[root[this.nodeKey]].length > arr.length) {
+        const uniq = this.selectedModel[root[this.nodeKey]].filter(e=> arr.findIndex(a => a[this.nodeKey] === e[this.nodeKey]))
         if (uniq && uniq[0]) {
-          const indexRemove = this.model.findIndex(e => e[this.optionKey] === uniq[0][this.optionKey])
-          if (indexRemove !== -1) this.model.splice(indexRemove, 1)
+          const indexRemove = cloneModel.findIndex(e => e[this.nodeKey] === uniq[0][this.nodeKey])
+          if (indexRemove !== -1) cloneModel.splice(indexRemove,1)
         }
-
       }
-      this.tickedModel[root.value] = target // Set new ticked tree elements
-
-      const currInd = this.optionsclone.findIndex(e => e[this.optionKey] === root[this.optionKey])
-
-      if (target.length === root.children.length) {
-        target.forEach(e => {
-          const indexInModel = this.model.findIndex(a => (e === a) || (e[this.optionKey] === a[this.optionKey]))
-          if (indexInModel !== -1) {
-            this.model.splice(indexInModel, 1)
-            this.setValue(this.model)
-          }
-        })
-        this.model = [...this.model, root]
-        this.model = [...new Set(this.model.map(e => JSON.stringify(e) ))].map(e => JSON.parse(e))
-        this.setValue(this.model)
-      } else {
-        const rootIndex = this.model.findIndex(e => e[this.optionKey] === root[this.optionKey])
-
-        if (rootIndex !== -1) {
-          this.model.splice(rootIndex, 1)
-          this.setValue(this.model)
-        }
-        this.optionsclone[currInd].children.forEach(element => {
-          const targetIndex =  target.findIndex(a => a[this.optionKey] === element[this.optionKey])
-          if (targetIndex !== -1) this.optionsclone[currInd].children[targetIndex].parent = currInd
+      this.selectedModel[root[this.nodeKey]] = arr //* Update selectedModel
+      // *Ckeck selected all children
+      let indexFromOptions = this.optionsOrigin.findIndex(e => e[this.nodeKey] === root[this.nodeKey])
+      if (arr.length === root.children.length) {
+        arr.forEach(o => {
+          let indexChild = cloneModel.findIndex(e=> e[this.nodeKey] === 0[this.nodeKey])
+          if (indexChild !== -1) cloneModel.splice(indexChild,1)
         });
-        this.model = [...this.model, ...target]
-        this.model = [...new Set(this.model.map(e => JSON.stringify(e) ))].map(e => JSON.parse(e))
-        this.setValue(this.model)
+        this.optionsOrigin[indexFromOptions].selected = true
+        if (cloneModel.findIndex((e) => e[this.nodeKey] === root[this.nodeKey]) === -1) cloneModel = [...cloneModel, root]
+      } else {
+        this.optionsOrigin[indexFromOptions].selected = false
+        let rootIndex = cloneModel.findIndex((e) => e[this.nodeKey] === root[this.nodeKey])
+        if (rootIndex !== -1) cloneModel.splice(rootIndex, 1)
+        arr.forEach(a => {
+          if (cloneModel.findIndex((e) => a[this.nodeKey] === e[this.nodeKey]) === -1) cloneModel.push(a)
+        })
       }
 
+      this.model = [...cloneModel]
+      this.setModel(this.model)
     },
-    selectClear(val) {
-      this.model = []
-      this.setValue(this.model)
-      this.tickedModel = {};
-    },
-    removeOption(details) {
-      if (details.value && details.value.parent !== null) {
-        const removeIndex = this.tickedModel[this.optionsclone[details.value.parent][this.optionKey]].findIndex(e => e[this.optionKey] === details.value[this.optionKey])
-        if (removeIndex !== -1) this.tickedModel[this.optionsclone[details.value.parent][this.optionKey]].splice(removeIndex, 1)
+    removeOption ({index, value}) {
+      let root = this.optionsOrigin.find(e => e[this.nodeKey] === value[this.nodeKey])
+      if (root) root.selected = false
+      for (let elem in this.selectedModel) {
+        let indexRemove = this.selectedModel[elem].findIndex(e => e[this.nodeKey] === value[this.nodeKey])
+        if (indexRemove !== -1) {
+          this.selectedModel[elem][indexRemove].selected = false
+        }
       }
+    },
+    clearSelect (val) {
+      for (let opt of this.optionsOrigin) {
+        if (opt.selected) opt.selected = false
+        if (opt.children && opt.children.length) {
+          opt.children.forEach(el => {
+            el.selected = false
+          })
+        }
+      }
+      this.model = []
+    },
+    setModel (val) {
+      this.setValue(val)
     }
   }
 };
@@ -116,4 +106,3 @@ export default {
   min-width: 25px;
 }
 </style>
-
