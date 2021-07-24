@@ -3,7 +3,8 @@ Quasar App Extension Select Options Tree
 
 > Added option like tree in q-select
 
-![optionsTree](https://user-images.githubusercontent.com/50715463/118376098-90abca00-b5ce-11eb-85cc-d878e7d34583.png)
+![select tree](https://user-images.githubusercontent.com/50715463/126863339-bc547ea1-87c0-4415-b85a-3f68561ec804.png)
+
 
 
 # Install
@@ -28,7 +29,7 @@ Quasar CLI will retrieve it from the NPM registry and install the extension to y
     - Available options that the user can select from,
     - examples:
     ```bash
-    [{label: 'American Cars', children: [ {label:'Ford'}, {label:'Tesla'}, {label:'General Motors'}]}]"
+    [{label: 'American Cars', value: 'american' selected: false, children: [ {label:'Ford', value: 'ford', selected: false}, {label:'Tesla', value: 'tesla', selected: false}, {label:'General Motors', value: 'general', selected: false}]}]"
     ```
   2. attributes:
     - type": "Object",
