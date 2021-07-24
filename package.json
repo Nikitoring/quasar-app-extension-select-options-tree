@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-select-options-tree",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "description": "Quasar App Extension which injects a Vue component - QSelectOptionsTree",
   "author": "Nikitoring <m.nikitoing@gmail.com>",
