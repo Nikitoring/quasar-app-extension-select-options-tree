@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="nodeSelectedObject.children">
+    <div v-if="nodeSelectedObject.children" class="select-tree">
       <div class="wrapper">
-        <q-item tag="label" v-ripple>
+        <q-item tag="label" v-ripple dense>
           <q-item-section side top>
             <q-checkbox
               indeterminate-value="somechecked"
@@ -15,7 +15,7 @@
           </q-item-section>
         </q-item>
       </div>
-      <div class="children-items">
+      <div class="app-extension-select-tree-children-items">
         <q-item
           dense
           v-for="child in nodeSelectedObject.children"
@@ -62,8 +62,6 @@ export default {
   name: "QOptionTree",
   props: {
 		scope: Object,
-		nodeKey: String,
-		selectedModel: Array
   },
   data() {
     return {
@@ -80,7 +78,7 @@ export default {
   },
   watch: {
     selectedChild(nv, ov) {
-      emit('passStateToModel', this.nodeSelectedObject.children.filter(e => e.selected), this.nodeSelectedObject)
+      this.$emit('passStateToModel', this.nodeSelectedObject.children.filter(e => e.selected), this.nodeSelectedObject)
 			if (nv < ov) {
 				if (nv === 0) {
 					this.nodeSelectedObject.selected = false
@@ -99,7 +97,7 @@ export default {
     modeSelected(nv, ov) {
       if (nv === true) {
 				this.nodeSelectedObject.children.forEach(element => { element.selected = true })
-				emit('passStateToModel', this.nodeSelectedObject.children.map(e => {
+				this.$emit('passStateToModel', this.nodeSelectedObject.children.map(e => {
 					return {
 						...e,
 						selected: true
@@ -108,9 +106,15 @@ export default {
 			}
 			if (nv === false) {
 				this.nodeSelectedObject.children.forEach(element => { element.selected = false })
-				emit('passStateToModel', [], this.nodeSelectedObject)
+				this.$emit('passStateToModel', [], this.nodeSelectedObject)
 			}
     }
   }
 };
 </script>
+
+<style scoped>
+.app-extension-select-tree-children-items .q-item {
+  padding-left: 3rem !important;
+}
+</style>
